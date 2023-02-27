@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import './header.css';
 
 import { NavLink } from "react-router-dom";
@@ -29,6 +29,13 @@ const nav__links = [
 ]
 
 function Header(){
+
+    const menuRef = useRef(null)
+
+    function menuToggle(){
+        menuRef.current.classList.toggle('active__menu')
+    }
+
     return(
         <header className="header">
             <Container>
@@ -42,7 +49,7 @@ function Header(){
                             </div>
                         </div>
 
-                        <div className="navigation">
+                        <div className="navigation" ref={menuRef} onClick={menuToggle}>
                             <ul className="menu">
                                 
                                 { nav__links.map((item, index) => (
@@ -67,13 +74,15 @@ function Header(){
                             </span>
 
                             <span> <motion.img whileTap={{scale: 1.2}} src={UserIcon} alt=""/> </span>
-                        </div>
 
-                        <div className="mobile__menu">
-                            <span>
+                            <div className="mobile__menu">
+                            <span onClick={menuToggle}>
                                 <i class="ri-menu-line"></i>
                             </span>
                         </div>
+                        </div>
+
+                       
                     </div>
                 </Row>
             </Container>
